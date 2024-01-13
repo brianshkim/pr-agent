@@ -133,7 +133,7 @@ class PRGenerateLabels:
         variables = copy.deepcopy(self.vars)
         variables["diff"] = self.patches_diff  # update diff
 
-        environment = Environment(undefined=StrictUndefined)
+        environment = Environment(undefined=StrictUndefined, autoescape=True)
         set_custom_labels(variables, self.git_provider)
         self.variables = variables
         system_prompt = environment.from_string(get_settings().pr_custom_labels_prompt.system).render(variables)

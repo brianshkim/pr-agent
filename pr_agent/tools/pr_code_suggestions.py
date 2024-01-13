@@ -101,7 +101,7 @@ class PRCodeSuggestions:
     async def _get_prediction(self, model: str):
         variables = copy.deepcopy(self.vars)
         variables["diff"] = self.patches_diff  # update diff
-        environment = Environment(undefined=StrictUndefined)
+        environment = Environment(undefined=StrictUndefined, autoescape=True)
         system_prompt = environment.from_string(get_settings().pr_code_suggestions_prompt.system).render(variables)
         user_prompt = environment.from_string(get_settings().pr_code_suggestions_prompt.user).render(variables)
         if get_settings().config.verbosity_level >= 2:
@@ -265,7 +265,7 @@ class PRCodeSuggestions:
 
             variables = {'suggestion_list': suggestion_list, 'suggestion_str': suggestion_str}
             model = get_settings().config.model
-            environment = Environment(undefined=StrictUndefined)
+            environment = Environment(undefined=StrictUndefined, autoescape=True)
             system_prompt = environment.from_string(get_settings().pr_sort_code_suggestions_prompt.system).render(
                 variables)
             user_prompt = environment.from_string(get_settings().pr_sort_code_suggestions_prompt.user).render(variables)
